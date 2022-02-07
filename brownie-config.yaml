@@ -1,0 +1,35 @@
+# exclude SafeMath when calculating test coverage
+# https://eth-brownie.readthedocs.io/en/v1.10.3/config.html#exclude_paths
+reports:
+  exclude_contracts:
+    - SafeMath
+dependencies:
+  - smartcontractkit/chainlink-brownie-contracts@1.0.2
+  - aave/protocol-v2@1.0.1
+  - OpenZeppelin/openzeppelin-contracts@3.4.0
+compiler:
+  solc:
+    remappings:
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.0.2'
+      - '@aave=aave/protocol-v2@1.0.1'
+      - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.4.0'
+# automatically fetch contract sources from Etherscan
+dotenv: .env
+networks:
+  default: mainnet-fork
+  mainnet-fork:
+    lending_pool_addresses_provider: '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5'
+    weth_token: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+    dai_eth_price_feed: '0x773616E4d11A78F511299002da57A0a94577F1f4'
+    dai_token: '0x6b175474e89094c44da98b954eedeac495271d0f'
+  kovan:
+    dai_token: '0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD'
+    dai_eth_price_feed: '0x22B58f1EbEDfCA50feF632bD73368b2FdA96D541'
+    weth_token: '0xd0a1e359811322d97991e03f863a0c30c2cf029c'
+    # You can get the address of the lending pool from the lending pool address provider
+    # Sometimes the lending_pool address changes, so we want to get the address from there
+    lending_pool_addresses_provider: '0x88757f2f99175387ab4c6a4b3067c77a695b0349'
+
+wallets:
+  from_key: ${PRIVATE_KEY}
+  
